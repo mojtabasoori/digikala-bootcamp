@@ -17,23 +17,15 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ProductController extends AbstractController
 {
     #[Route('', name: 'app_product_new', methods: ['POST'])]
-    #[ParamConverter('productRequest', class: ProductRequest::class)]
+    #[ParamConverter('validatedRequest', class: ProductRequest::class)]
     public function new(
         Request $request,
         ProductRepository $repository,
-        ProductRequest $productRequest)
+        ProductRequest $validatedRequest)
     {
-
-dd($productRequest);
-
-        $requestData = $request->toArray();
        $product = new Product();
-       $product->setTitle($requestData['title']);
-//       $product->setStock($requestData['stock']);
-
-        $violations = $validator->validate($product);
-
-//        dd($violations);
+       $product->setTitle($validatedRequest->title);
+       $product->setStock($validatedRequest->stock);
 
        $repository->add($product, true);
 
