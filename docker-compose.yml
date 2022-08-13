@@ -6,7 +6,7 @@ services:
     container_name: camp-db
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: camp
+      MYSQL_DATABASE: camp2
       MYSQL_USER: digi
       MYSQL_PASSWORD: digi
     ports:
