@@ -31,4 +31,12 @@ class ProductController extends AbstractController
 
        return $this->json($product);
     }
+
+    #[Route('', name: 'app_product_index', methods: ['GET'])]
+    public function index( ProductRepository $repository)
+    {
+        $products = $repository->findAll();
+
+        return $this->json($products);
+    }
 }
