@@ -7,6 +7,7 @@ use App\Form\ProductType;
 use App\Message\NewProductMessage;
 use App\Repository\ProductRepository;
 use App\Requests\ProductRequest;
+use App\Services\ProductService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,20 +22,11 @@ class ProductController extends AbstractController
     #[Route('', name: 'app_product_new', methods: ['POST'])]
     #[ParamConverter('validatedRequest', class: ProductRequest::class)]
     public function new(
-        Request $request,
-        ProductRepository $repository,
         ProductRequest $validatedRequest,
-        MessageBusInterface $bus
+        ProductService $productService
     )
     {
-
-       $product = new Product();
-       $product->setTitle($validatedRequest->title);
-       $product->setStock($validatedRequest->stock);
-
-       $repository->add($product, true);
-
-       $bus->dispatch(new NewProductMessage($product->getId()));
+        $product = $productService->new($validatedRequest);
 
        return $this->json($product);
     }

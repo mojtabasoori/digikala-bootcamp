@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Check{% endblock %}
+
+{% block body %}
+    <h1>Edit Check</h1>
+
+    {{ include('check/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_check_index') }}">back to list</a>
+
+    {{ include('check/_delete_form.html.twig') }}
+{% endblock %}
